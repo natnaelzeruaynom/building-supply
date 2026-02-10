@@ -38,7 +38,7 @@ class InventoryManager {
 
     render(filter = '') {
         const tbody = document.getElementById('inventory-body');
-        const totalItemsEl = document.getElementById('total-items-count');
+        const totalItemsEl = document.getElementById('dash-sku-count');
         
         if (!tbody) return;
 
@@ -54,12 +54,15 @@ class InventoryManager {
                 const statusClass = item.status === 'In Stock' ? 'success' : 'warning';
                 tbody.innerHTML += `
                     <tr>
-                        <td>${index + 1}</td>
-                        <td><strong>${item.name}</strong></td>
+                        <td class="px-4">${index + 1}</td>
+                        <td>
+                            <div class="fw-bold text-dark">${item.name}</div>
+                            <div class="small text-muted">SKU: BS-${item.id.toString().slice(-6)}</div>
+                        </td>
                         <td>${item.quantity}</td>
                         <td><span class="badge bg-${statusClass}">${item.status}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-danger" onclick="inventory.deleteItem(${item.id})">Delete</button>
+                        <td class="text-end px-4">
+                            <button class="btn btn-sm btn-light border" onclick="inventory.deleteItem(${item.id})">Remove</button>
                         </td>
                     </tr>
                 `;
